@@ -1,5 +1,5 @@
 import PromptInput from "../components/playground/PromptInput";
-import CodeEditor from "../components/playground/CodeEditor"
+import CodeEditor from "../components/playground/editor/CodeEditor"
 import Preview from "../components/playground/Preview"
 import { useState } from "react";
 

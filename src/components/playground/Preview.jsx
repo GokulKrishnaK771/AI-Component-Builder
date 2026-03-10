@@ -4,6 +4,14 @@ export default function Preview() {
 
     const code = useSelector((state) => state.playground.code)
 
+    if (!code) {
+        return (
+            <div className="w-full h-full border flex items-center justify-center p-4">
+                <p className="text-gray-400">Waiting for code to preview...</p>
+            </div>
+        )
+    }
+
     // Simple cleanup to handle accidental markdown or exports
     let cleanCode = code
         .replace(/```jsx\n?/gi, "")
