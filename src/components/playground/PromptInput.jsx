@@ -4,6 +4,8 @@ import { generateComponent } from '../../features/ai/aislice'
 
 const PromptInput = () => {
 
+    const loading = useSelector((state) => state.ai.loading)
+
     const dispatch = useDispatch()
 
     const prompt = useSelector((state) => state.playground.prompt)
@@ -29,7 +31,7 @@ const PromptInput = () => {
                 onClick={handleGenerate}
                 className="border p-2"
             >
-                Generate UI
+                {loading? "Generating" : "Generate UI"}
             </button>
         </div>
     )
