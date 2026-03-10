@@ -25,6 +25,7 @@ export const generateComponentFromAI = async (prompt) => {
                 }
             }
         )
+        return response.data.choices[0].message.content
     } catch (error) {
         console.error("AI generation failed:", error)
         return null

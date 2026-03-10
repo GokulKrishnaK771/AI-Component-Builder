@@ -4,5 +4,6 @@ import playgroundreducer from "../features/playground/playgroundslice";
 export const store = configureStore({
     reducer:{
         playground: playgroundreducer,
+        ai:aireducer
     }
 })
