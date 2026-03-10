@@ -1,9 +1,26 @@
-import React from 'react'
+import { useSelector } from "react-redux"
 
-const Preview = () => {
+export default function Preview() {
+
+  const code = useSelector((state) => state.playground.code)
+
+  const html = `
+  <html>
+  <body>
+  <div id="root"></div>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+  ${code}
+  </script>
+  </body>
+  </html>
+  `
+
   return (
-    <div>Preview</div>
+    <iframe
+      srcDoc={html}
+      title="preview"
+      className="w-full h-full border"
+    />
   )
 }
-
-export default Preview

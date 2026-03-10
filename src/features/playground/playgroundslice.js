@@ -11,10 +11,13 @@ const  playgorundslice = createSlice({
     reducers: {
         setPrompt: (state,action)=>{
             state.prompt = action.payload
+        },
+        setCode: (state, action)=>{
+            state.code = action.payload
         }
     }
 })
 
-export const { setPrompt } = playgorundslice.actions
+export const { setPrompt, setCode } = playgorundslice.actions
 
 export default playgorundslice.reducer

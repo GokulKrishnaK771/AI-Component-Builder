@@ -26,7 +26,7 @@ const PromptInput = () => {
 
             <button
                 onClick={handleGenerate}
-                className="border p-2 ml-2"
+                className="border p-2"
             >
                 Generate UI
             </button>
