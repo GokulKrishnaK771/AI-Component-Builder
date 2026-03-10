@@ -1,4 +1,4 @@
-import Editor from "@monaco-editor/React";
+import Editor from "@monaco-editor/react";
 import { useSelector, useDispatch } from 'react-redux';
 import { setCode } from "../../../features/playground/playgroundslice";
 // import { useEffect } from "react";
