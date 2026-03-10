@@ -10,11 +10,11 @@ const CodeEditor = () => {
     const dispatch = useDispatch();
 
     const code = useSelector((state) => state.playground.code);
-    const generatedCode = useSelector((state) => state.ai.generatedCode)
+    // const generatedCode = useSelector((state) => state.ai.generatedCode)
 
-    const handleCodeChange = (value) => {
-        dispatch(setCode(value))
-    }
+    // const handleCodeChange = (value) => {
+    //     dispatch(setCode(value))
+    // }
 
     // useEffect(() => {
     //     if (generatedCode) {

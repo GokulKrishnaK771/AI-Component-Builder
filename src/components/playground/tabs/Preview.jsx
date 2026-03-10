@@ -5,15 +5,6 @@ export default function Preview() {
 
     const code = useSelector((state) => state.playground.code)
 
-
-    if (!code) {
-        return (
-            <div className="w-full h-full border flex items-center justify-center p-4">
-                <p className="text-gray-400">Waiting for code to preview...</p>
-            </div>
-        )
-    }
-
     const html = useMemo(()=>{
     // Simple cleanup to handle accidental markdown or exports
     let cleanCode = code
@@ -36,7 +27,11 @@ export default function Preview() {
         cleanCode = `function App() {\n  return (\n    ${cleanCode}\n  );\n}`;
     }
 
-    cleanCode = cleanCode.replace(/`/g, "\\`");
+    // The raw AI code is passed seamlessly via interpolating it at runtime
+    // We convert it to a safe string literal to extract the props statically
+    const scriptTag = "</" + "script>";
+    const safeCode = cleanCode.split(scriptTag).join("<\\/script>");
+    const rawCodeScript = "window.__rawCode = " + JSON.stringify(cleanCode).split(scriptTag).join("<\\/script>") + ";";
 
     
         return `
@@ -54,6 +49,10 @@ export default function Preview() {
             margin:0;
             font-family: system-ui, sans-serif;
             padding:16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 100dvh;
             }
         </style>
         </head>
@@ -64,13 +63,16 @@ export default function Preview() {
         <script>
             window.React = React;
             window.ReactDOM = ReactDOM;
+            ` + rawCodeScript + `
         </script>
 
         <script type="text/babel">
 
             try {
 
-            ${cleanCode}
+            const { useState, useEffect, useCallback, useMemo, useRef, useReducer, useContext } = React;
+
+            ` + safeCode + `
 
             const rootElement = document.getElementById("root")
             const root = ReactDOM.createRoot(rootElement)
@@ -87,7 +89,16 @@ export default function Preview() {
 
             } else {
 
-                root.render(React.createElement(App))
+                // React discards Proxies when generating createElement props.
+                // We statically intercept expected callback props from the code string instead.
+                const mockProps = {};
+                const sourceCode = window.__rawCode || "";
+                const propMatches = sourceCode.match(/on[A-Z]\\w+/g) || [];
+                propMatches.forEach(prop => {
+                    mockProps[prop] = function() {};
+                });
+
+                root.render(React.createElement(App, mockProps))
 
             }
 
@@ -104,8 +115,16 @@ export default function Preview() {
 
         </body>
      </html>
-  `
+  `;
   },[code])
+
+    if (!code) {
+        return (
+            <div className="w-full h-full border flex items-center justify-center p-4">
+                <p className="text-gray-400">Waiting for code to preview...</p>
+            </div>
+        )
+    }
 
     return (
         <iframe
