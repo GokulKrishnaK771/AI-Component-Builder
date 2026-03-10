@@ -1,4 +1,11 @@
-import { createSlice } from '@reduxjs/toolkit';
+import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
+import { generateComponentFromAI } from '../../services/aiService';
+
+const generateComponent = createAsyncThunk("ai/generateComponent",
+    async (prompt) => {
+        const result = await generateComponentFromAI(prompt)
+        return result
+    })
 
 const initialState = {
     loading: false,
@@ -11,15 +18,32 @@ const aislice = createSlice({
     initialState,
     reducers: {
 
-        setGeneratedCode: (state, action) => {
-            state.generatedCode = action.payload
-        },
+        // setGeneratedCode: (state, action) => {
+        //     state.generatedCode = action.payload
+        // },
 
-        setLoading: (state, action) => {
-            state.loading = action.payload
-        }
+        // setLoading: (state, action) => {
+        //     state.loading = action.payload
+        // }
 
-    }
+    },
+    extraReducers: (builder) => {
+
+    builder
+      .addCase(generateComponent.pending, (state) => {
+        state.loading = true
+      })
+
+      .addCase(generateComponent.fulfilled, (state, action) => {
+        state.loading = false
+        state.generatedCode = action.payload
+      })
+
+      .addCase(generateComponent.rejected, (state) => {
+        state.loading = false
+        state.error = "Failed to generate component"
+      })
+  }
 })
 
 export default aislice.reducer
