@@ -1,5 +1,6 @@
 import { useSelector, useDispatch } from 'react-redux'
 import { setPrompt } from '../../features/playground/playgroundslice'
+import { generateComponent } from '../../features/ai/aislice'
 
 const PromptInput = () => {
 
@@ -12,7 +13,7 @@ const PromptInput = () => {
     }
 
     const handleGenerate = () => {
-        console.log(prompt)
+        dispatch(generateComponent(prompt))
     }
     return (
         <div>

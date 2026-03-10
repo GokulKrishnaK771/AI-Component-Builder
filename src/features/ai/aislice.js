@@ -48,4 +48,4 @@ const aislice = createSlice({
 
 export default aislice.reducer
 
-export const { setGeneratedCode, setLoading } = aislice.actions
+// export const { setGeneratedCode, setLoading } = aislice.actions
