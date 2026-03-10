@@ -15,6 +15,7 @@ const PromptInput = () => {
     }
 
     const handleGenerate = () => {
+        console.time("Full generation")
         dispatch(generateComponent(prompt))
     }
     return (

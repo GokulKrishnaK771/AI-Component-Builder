@@ -1,7 +1,7 @@
 import Editor from "@monaco-editor/React";
 import { useSelector, useDispatch } from 'react-redux';
 import { setCode } from "../../../features/playground/playgroundslice";
-import { useEffect } from "react";
+// import { useEffect } from "react";
 
 
 
@@ -16,11 +16,11 @@ const CodeEditor = () => {
         dispatch(setCode(value))
     }
 
-    useEffect(() => {
-        if (generatedCode) {
-            dispatch(setCode(generatedCode))
-        }
-    }, [generatedCode])
+    // useEffect(() => {
+    //     if (generatedCode) {
+    //         dispatch(setCode(generatedCode))
+    //     }
+    // }, [generatedCode])
 
     return (
         <Editor

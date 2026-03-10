@@ -1,6 +1,7 @@
 import axios from "axios";
 
 export const generateComponentFromAI = async (prompt) => {
+    console.time("AI response")
     try {
         const response = await axios.post(
             "https://api.groq.com/openai/v1/chat/completions", {
@@ -25,6 +26,7 @@ export const generateComponentFromAI = async (prompt) => {
                 }
             }
         )
+         console.timeEnd("AI response")
         return response.data.choices[0].message.content
     } catch (error) {
         console.error("AI generation failed:", error)

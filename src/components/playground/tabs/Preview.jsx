@@ -4,6 +4,7 @@ export default function Preview() {
 
     const code = useSelector((state) => state.playground.code)
 
+
     if (!code) {
         return (
             <div className="w-full h-full border flex items-center justify-center p-4">
