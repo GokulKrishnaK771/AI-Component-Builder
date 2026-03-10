@@ -4,37 +4,43 @@ import CodeEditor from "./CodeEditor"
 
 export default function PreviewTabs() {
 
-  const [tab, setTab] = useState("preview")
+    const [tab, setTab] = useState("preview")
 
-  return (
-    <div className="h-full flex flex-col">
+    return (
+        <div className="h-full flex flex-col">
 
-      <div className="flex border-b">
+            <div className="flex border-b">
 
-        <button
-          className={`px-4 py-2 ${
-            tab === "preview" ? "border-b-2 border-black" : ""
-          }`}
-          onClick={() => setTab("preview")}
-        >
-          Preview
-        </button>
+                <button
+                    className={`px-4 py-2 ${tab === "preview" ? "border-b-2 border-black" : ""
+                        }`}
+                    onClick={() => setTab("preview")}
+                >
+                    Preview
+                </button>
 
-        <button
-          className={`px-4 py-2 ${
-            tab === "code" ? "border-b-2 border-black" : ""
-          }`}
-          onClick={() => setTab("code")}
-        >
-          Code
-        </button>
+                <button
+                    className={`px-4 py-2 ${tab === "code" ? "border-b-2 border-black" : ""
+                        }`}
+                    onClick={() => setTab("code")}
+                >
+                    Code
+                </button>
 
-      </div>
+            </div>
 
-      <div className="flex-1">
-        {tab === "preview" ? <Preview /> : <CodeEditor />}
-      </div>
+            <div className="flex-1 relative">
 
-    </div>
-  )
+                <div className={tab === "preview" ? "h-full block" : "hidden"}>
+                    <Preview />
+                </div>
+
+                <div className={tab === "code" ? "h-full block" : "hidden"}>
+                    <CodeEditor />
+                </div>
+
+            </div>
+
+        </div>
+    )
 }

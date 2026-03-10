@@ -1,3 +1,4 @@
+import { useMemo } from "react";
 import { useSelector } from "react-redux"
 
 export default function Preview() {
@@ -13,6 +14,7 @@ export default function Preview() {
         )
     }
 
+    const html = useMemo(()=>{
     // Simple cleanup to handle accidental markdown or exports
     let cleanCode = code
         .replace(/```jsx\n?/gi, "")
@@ -36,7 +38,8 @@ export default function Preview() {
 
     cleanCode = cleanCode.replace(/`/g, "\\`");
 
-    const html = `
+    
+        return `
     <html>
         <head>
         <script src="https://cdn.tailwindcss.com"></script>
@@ -102,11 +105,13 @@ export default function Preview() {
         </body>
      </html>
   `
+  },[code])
 
     return (
         <iframe
             srcDoc={html}
             title="preview"
+            loading="lazy"
             sandbox="allow-scripts"
             className="w-full h-full border"
         />
