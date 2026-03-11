@@ -32,7 +32,7 @@ import PreviewTabs from "../components/playground/tabs/PreviewTabs"
 export default function Playground() {
 
   return (
-    <div className="h-screen flex">
+    <div className="h-screen flex bg-black">
 
       <div className="w-1/3 border-r flex flex-col">
         <PromptInput />

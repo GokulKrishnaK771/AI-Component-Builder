@@ -4,36 +4,51 @@ import { useSelector } from "react-redux"
 export default function Preview() {
 
     const code = useSelector((state) => state.playground.code)
+    const loading = useSelector((state) => state.ai.loading)
 
-    const html = useMemo(()=>{
-    // Simple cleanup to handle accidental markdown or exports
-    let cleanCode = code
-        .replace(/```jsx\n?/gi, "")
-        .replace(/```javascript\n?/gi, "")
-        .replace(/```\n?/g, "")
-        .replace(/import\s+.*?from\s+['"].*?['"];?/g, "")
-        .trim();
+    const background = loading ? "#000000" : "#ffffff"
 
-    // Handle various export styles
-    cleanCode = cleanCode
-        .replace(/export default function\s+(\w+)/g, "function App")
-        .replace(/export default\s+(\w+);?/g, "const App = $1;")
+    const html = useMemo(() => {
 
-    // If the AI just returned raw JSX tags without a component wrapper, wrap it
-    if (
-        !cleanCode.includes("function ") &&
-        !cleanCode.includes("const ") &&
-        cleanCode.startsWith("<")) {
-        cleanCode = `function App() {\n  return (\n    ${cleanCode}\n  );\n}`;
-    }
+        //     if (loading) {
+        //   return `
+        //   <html>
+        //     <body style="background:${background};display:flex;align-items:center;justify-content:center;height:100vh;color:white;font-family:sans-serif;">
+        //       Generating UI...
+        //     </body>
+        //   </html>
+        //   `
+        // }
 
-    // The raw AI code is passed seamlessly via interpolating it at runtime
-    // We convert it to a safe string literal to extract the props statically
-    const scriptTag = "</" + "script>";
-    const safeCode = cleanCode.split(scriptTag).join("<\\/script>");
-    const rawCodeScript = "window.__rawCode = " + JSON.stringify(cleanCode).split(scriptTag).join("<\\/script>") + ";";
 
-    
+        // Simple cleanup to handle accidental markdown or exports
+        let cleanCode = code
+            .replace(/```jsx\n?/gi, "")
+            .replace(/```javascript\n?/gi, "")
+            .replace(/```\n?/g, "")
+            .replace(/import\s+.*?from\s+['"].*?['"];?/g, "")
+            .trim();
+
+        // Handle various export styles
+        cleanCode = cleanCode
+            .replace(/export default function\s+(\w+)/g, "function App")
+            .replace(/export default\s+(\w+);?/g, "const App = $1;")
+
+        // If the AI just returned raw JSX tags without a component wrapper, wrap it
+        if (
+            !cleanCode.includes("function ") &&
+            !cleanCode.includes("const ") &&
+            cleanCode.startsWith("<")) {
+            cleanCode = `function App() {\n  return (\n    ${cleanCode}\n  );\n}`;
+        }
+
+        // The raw AI code is passed seamlessly via interpolating it at runtime
+        // We convert it to a safe string literal to extract the props statically
+        const scriptTag = "</" + "script>";
+        const safeCode = cleanCode.split(scriptTag).join("<\\/script>");
+        const rawCodeScript = "window.__rawCode = " + JSON.stringify(cleanCode).split(scriptTag).join("<\\/script>") + ";";
+
+
         return `
     <html>
         <head>
@@ -50,6 +65,7 @@ export default function Preview() {
             font-family: system-ui, sans-serif;
             padding:16px;
             display: flex;
+            background:white;
             align-items: center;
             justify-content: center;
             min-height: 100dvh;
@@ -116,12 +132,20 @@ export default function Preview() {
         </body>
      </html>
   `;
-  },[code])
+    }, [code])
+
+    if (loading) {
+        return (
+            <div className="bg-black text-white w-full h-full flex items-center justify-center">
+                Generating UI...
+            </div>
+        )
+    }
 
     if (!code) {
         return (
-            <div className="w-full h-full border flex items-center justify-center p-4">
-                <p className="text-gray-400">Waiting for code to preview...</p>
+            <div className="bg-black text-white w-full h-full flex items-center justify-center">
+                Waiting for code...
             </div>
         )
     }
