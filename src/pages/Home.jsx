@@ -1,6 +1,7 @@
 import { useSelector } from "react-redux"
 import PromptInput from "../components/playground/PromptInput"
-import PreviewTabs from "../components/playground/tabs/PreviewTabs"
+import Playground from "./Playground"
+// import PreviewTabs from "../components/playground/tabs/PreviewTabs"
 // import ChatMessages from "../components/ChatMessages"
 
 export default function Home() {
@@ -37,17 +38,6 @@ export default function Home() {
   }
 
   return (
-    <div className="h-screen flex bg-black text-white">
-
-      <div className="w-[500px] flex flex-col bottom-0 mx-5 ">
-        {/* <ChatMessages /> */}
-        <PromptInput/>
-      </div>
-
-      <div className="flex-1">
-        <PreviewTabs />
-      </div>
-
-    </div>
+    <Playground />
   )
 }

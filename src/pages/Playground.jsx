@@ -38,7 +38,7 @@ export default function Playground() {
       
 
       <div className="w-1/3 flex flex-col justify-end">
-        <PromptInput border="border-gray-800" />
+        <PromptInput />
       </div>
 
       <div className="flex-1 rounded-2xl">
