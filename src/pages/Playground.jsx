@@ -29,16 +29,19 @@
 import PromptInput from "../components/playground/PromptInput"
 import PreviewTabs from "../components/playground/tabs/PreviewTabs"
 
+
 export default function Playground() {
 
   return (
-    <div className="h-screen flex bg-black">
+    <div className="h-screen flex bg-black pb-5 pt-5 mx-5 gap-5">
 
-      <div className="w-1/3 border-r flex flex-col">
-        <PromptInput />
+      
+
+      <div className="w-1/3 flex flex-col justify-end">
+        <PromptInput border="border-gray-800" />
       </div>
 
-      <div className="flex-1">
+      <div className="flex-1 rounded-2xl">
         <PreviewTabs />
       </div>
 

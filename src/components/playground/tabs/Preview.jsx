@@ -144,7 +144,7 @@ export default function Preview() {
 
     if (!code) {
         return (
-            <div className="bg-black text-white w-full h-full flex items-center justify-center">
+            <div className="bg-black text-white w-full h-full flex items-center justify-center rounded-2xl">
                 Waiting for code...
             </div>
         )

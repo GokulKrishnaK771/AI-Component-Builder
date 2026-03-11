@@ -1,17 +1,23 @@
 import { useSelector, useDispatch } from "react-redux"
 import { setPrompt, openBuilder } from "../../features/playground/playgroundslice"
 import { generateComponent } from "../../features/ai/aislice"
+import { Fragment, useRef } from "react"
 
 const PromptInput = () => {
 
     const loading = useSelector((state) => state.ai.loading)
     const prompt = useSelector((state) => state.playground.prompt)
     const builderOpen = useSelector((state) => state.playground.builderOpen)
+    const textareaRef = useRef(null)
 
     const dispatch = useDispatch()
 
     const handlePrompt = (e) => {
         dispatch(setPrompt(e.target.value))
+        const el = textareaRef.current
+        if (!el) return
+        el.style.height = "auto";
+        el.style.height = Math.min(el.scrollHeight, 200) + "px";
     }
 
     const handleSubmit = (e) => {
@@ -24,32 +30,33 @@ const PromptInput = () => {
     }
 
     return (
-        <>
+        <Fragment className="mx-auto">
             <form
                 onSubmit={handleSubmit}
-                className={`${builderOpen ? "h-50 text-sm" : "h-60 text-lg"} relative w-full max-w-3xl mx-auto  rounded-xl border border-neutral-700
-                focus-within:border-neutral-500 p-3`}
+                className="relative w-full md:max-w-3xl max-w-l rounded-xl border border-neutral-700 focus-within:border-neutral-500 p-3 flex flex-col gap-3"
             >
+
                 <textarea
-                    className="w-full resize-none  pb-20
-                    min-h-[80px] max-h-[200px]
-                    overflow-y-auto
-                    transition-all duration-500
-                    outline-none focus:outline-none focus:ring-0"
+                    ref={textareaRef}
+                    rows={4}
+                    className="w-full resize-none min-h-[40px] max-h-[200px] overflow-y-auto outline-none"
                     placeholder="Describe a UI component..."
                     value={prompt}
                     onChange={handlePrompt}
                 />
 
-                <button
-                    type="submit"
-                    className="absolute bottom-3 right-3 border px-4 py-2 rounded-lg bg-white text-black font-mono"
-                >
-                    {loading ? "Generating..." : "Generate UI"}
-                </button>
+                <div className="flex justify-end">
+                    <button
+                        type="submit"
+                        className=" px-4 py-2 rounded-lg bg-amber-600 text-white font-mono"
+                    >
+                        {loading ? "Generating..." : "Generate"}
+                    </button>
+                </div>
+
             </form>
 
-        </>
+        </Fragment>
 
     )
 }
