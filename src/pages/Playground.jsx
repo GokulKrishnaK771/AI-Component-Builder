@@ -28,6 +28,7 @@
 
 import PromptInput from "../components/playground/PromptInput"
 import PreviewTabs from "../components/playground/tabs/PreviewTabs"
+import ChatMessages from "../components/playground/chats/ChatMessages"
 
 
 export default function Playground() {
@@ -35,10 +36,13 @@ export default function Playground() {
   return (
     <div className="h-screen flex bg-black pb-5 pt-5 mx-5 gap-5">
 
-      
 
-      <div className="w-1/3 flex flex-col justify-end">
-        <PromptInput />
+
+      <div className=" w-full md:max-w-3xl max-w-l rounded-xl border border-neutral-700 focus-within:border-neutral-500 p-3 flex flex-col gap-3 justify-end">
+        <div className="flex flex-col h-full justify-end">
+          <ChatMessages />
+          <PromptInput />
+        </div>
       </div>
 
       <div className="flex-1 rounded-2xl">

@@ -3,7 +3,8 @@ import { createSlice } from "@reduxjs/toolkit"
 const initialState = {
     prompt: "",
     code: "",
-    builderOpen: false
+    builderOpen: false,
+    messages: []
 }
 
 const playgorundslice = createSlice({
@@ -18,10 +19,21 @@ const playgorundslice = createSlice({
         },
         openBuilder: (state) => {
             state.builderOpen = true
+        },
+        addMessage: (state, action) => {
+            state.messages.push(action.payload)
+        },
+        updateLastMessage: (state, action) => {
+            const last = state.messages[state.messages.length - 1]
+
+            if (last && last.role === "assistant") {
+                last.content = action.payload
+            }
         }
+
     }
 })
 
-export const { setPrompt, setCode, openBuilder } = playgorundslice.actions
+export const { setPrompt, setCode, openBuilder, addMessage, updateLastMessage } = playgorundslice.actions
 
 export default playgorundslice.reducer

@@ -2,6 +2,7 @@ import { useSelector, useDispatch } from "react-redux"
 import { setPrompt, openBuilder } from "../../features/playground/playgroundslice"
 import { generateComponent } from "../../features/ai/aislice"
 import { Fragment, useRef } from "react"
+import { addMessage } from "../../features/playground/playgroundslice"
 
 const PromptInput = () => {
 
@@ -26,6 +27,16 @@ const PromptInput = () => {
         if (!prompt.trim()) return
 
         dispatch(openBuilder())
+        dispatch(addMessage({
+            role: "user",
+            content: prompt
+        }))
+        
+        dispatch(setPrompt(""))
+        dispatch(addMessage({
+            role: "assistant",
+            content: "Thinking..."
+        }))
         dispatch(generateComponent(prompt))
     }
 

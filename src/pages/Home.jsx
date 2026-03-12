@@ -25,7 +25,7 @@ export default function Home() {
         }}
       />
 
-      <h1 className="sm:text-4xl text-2xl mb-8 font-mono text-center z-10">
+      <h1 className="sm:text-4xl text-2xl mb-8 font-mono text-center tracking-tighter z-10">
         What do you want to create?
       </h1>
 

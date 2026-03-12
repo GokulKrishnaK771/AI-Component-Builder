@@ -1,11 +1,13 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import { generateComponentFromAI } from '../../services/aiService';
-import { setCode } from "../playground/playgroundslice"
+import { setCode, updateLastMessage } from "../playground/playgroundslice"
 
 export const generateComponent = createAsyncThunk("ai/generateComponent",
     async (prompt, { dispatch }) => {
+      dispatch(updateLastMessage("Generating component..."))
         const result = await generateComponentFromAI(prompt)
         dispatch(setCode(result))
+        dispatch(updateLastMessage("Component generated"))
         return result
     })
 
