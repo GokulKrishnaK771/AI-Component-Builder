@@ -1,12 +1,26 @@
-import { Eye, Code2 } from "lucide-react"
+import { Eye, Code2, Copy, Check } from "lucide-react"
 import { useState } from "react"
 import Preview from "./Preview"
 import CodeEditor from "./CodeEditor"
-import WebMockup from "../Webmockup"
+import { useSelector } from "react-redux"
+
 
 export default function PreviewTabs() {
 
     const [tab, setTab] = useState("preview")
+    const code = useSelector((state) => state.playground.code)
+
+    const [copied, setCopied] = useState(false)
+
+    const handleCopy = async () => {
+        await navigator.clipboard.writeText(code)
+
+        setCopied(true)
+
+        setTimeout(() => {
+            setCopied(false)
+        }, 1500)
+    }
 
     return (
 
@@ -29,7 +43,7 @@ export default function PreviewTabs() {
                     </div>
                 </div>
                 {/* Toggle */}
-                <div className="flex justify-end">
+                <div className="flex justify-end gap-5">
                     <div className="flex bg-gray-950 border border-neutral-700 rounded-lg w-fit">
 
                         <button
@@ -55,15 +69,31 @@ export default function PreviewTabs() {
                         </button>
 
                     </div>
+
+                    {tab === "code" && (
+                        <button
+                            onClick={handleCopy}
+                            className="text-neutral-400 hover:text-white transition-opacity duration-150"
+                        >
+                            {copied ? <Check size={16} /> : <Copy size={16} />}
+                        </button>
+                    )}
                 </div>
             </div>
 
 
 
             {/* Content */}
-            <div className="flex-1">
-                {tab === "preview" && <Preview />}
-                {tab === "code" && <CodeEditor />}
+            <div className="flex-1 relative">
+
+                <div className={tab === "preview" ? "block h-full" : "hidden"}>
+                    <Preview />
+                </div>
+
+                <div className={tab === "code" ? "block h-full" : "hidden"}>
+                    <CodeEditor />
+                </div>
+
             </div>
 
         </div>
