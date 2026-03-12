@@ -21,7 +21,7 @@ Built for developers who want to **prototype UI faster using AI**.
 
 ## 🖥️ Demo
 
-![Preview Screenshot](./public/demo1.png)
+![Preview Screenshot](./public/demo.png)
 ![Preview Screenshot](./public/demo2.png)
 
 ---
