@@ -1,16 +1,160 @@
-# React + Vite
+# ⚡ AI Component Builder
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+An AI-powered playground that generates **React + Tailwind CSS components instantly from prompts**.  
+Describe the UI you want and the AI generates the component with a **live preview and editable code**.
 
-Currently, two official plugins are available:
+Built for developers who want to **prototype UI faster using AI**.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+---
 
-## React Compiler
+## 🚀 Features
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+- 🤖 **AI Component Generation** – Generate React components from natural language prompts
+- ⚡ **Instant Live Preview** – Render the generated component immediately
+- 🧠 **Monaco Code Editor** – Full-featured code editor for editing AI output
+- 🔄 **Preview / Code Toggle** – Switch between UI preview and code view
+- 📋 **Copy Code** – One-click copy for generated components
+- 🎨 **Tailwind CSS Ready** – Components are styled using Tailwind
+- 🧩 **Component Playground** – Experiment and iterate on components in real time
 
-## Expanding the ESLint configuration
+---
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+## 🖥️ Demo
+
+![Preview Screenshot](./public/demo1.png)
+![Preview Screenshot](./public/demo2.png)
+
+---
+
+# 🏗️ Tech Stack
+
+### Frontend
+- React
+- Redux Toolkit
+- Tailwind CSS
+- Monaco Editor
+
+### AI
+- OpenAI API
+
+### Deployment
+- Vercel
+
+---
+
+# 📂 Project Structure
+
+```
+AI-Component-Builder
+│
+├── public # Static assets
+│
+├── src
+│ ├── components # UI components
+│ │ ├── playground
+│ │ │ ├── tabs
+│ │ │ │ ├── CodeEditor.jsx
+│ │ │ │ ├── Preview.jsx
+│ │ │ │ └── PreviewTabs.jsx
+│ │ │ ├── PromptInput.jsx
+│ │ │ └── Webmockup.jsx
+│ │ │
+│ │ └── chats
+│ │ └── ChatMessages.jsx
+│ │
+│ ├── features # Redux state management
+│ │ ├── ai
+│ │ │ └── aislice.js
+│ │ └── playground
+│ │ └── playgroundslice.js
+│ │
+│ ├── pages # Application pages
+│ │ ├── Home.jsx
+│ │ └── Playground.jsx
+│ │
+│ ├── services # API calls
+│ ├── utils # Helper functions
+│ │
+│ ├── App.jsx
+│ └── main.jsx
+│
+├── package.json
+├── tailwind.config.js
+├── vite.config.js
+└── README.md
+```
+## ⚙️ Installation
+
+Clone the repository
+
+```
+git clone https://github.com/GokulKrishnaK771/AI-Component-Builder.git
+```
+Move into the project
+```
+cd ai-component-builder
+```
+Install dependencies
+```
+npm install
+```
+Run the development server
+```
+npm run dev
+```
+---
+
+```
+## 🔑 Environment Variables
+
+Create a `.env` file in the root directory and add:
+
+
+VITE_GROQ_API_KEY=your_groq_api_key
+
+
+This key is used to generate UI components from the AI model.
+
+```
+## 🧠 How It Works
+
+1. User enters a prompt describing a UI component.
+2. The prompt is sent to the OpenAI API.
+3. The AI generates a React component using Tailwind CSS.
+4. The generated code appears in the Monaco Editor.
+5. The component renders instantly in the preview panel.
+
+## 🛠 Example Prompt
+
+Create a modern pricing card with 3 plans and highlight the pro plan
+
+## 📦 Deployment
+
+This project can be deployed easily on **Vercel**.
+
+Steps:
+
+1. Push the repository to GitHub
+2. Import the project in Vercel
+3. Add the environment variable
+
+## 💡 Future Improvements
+
+- Component history
+- Prompt templates
+- Multi-component generation
+- Export component to project
+- Figma design import
+- UI component library
+- Multi Code Language support
+
+## 🤝 Contributing
+
+Contributions are welcome.
+
+If you'd like to improve the project:
+
+1. Fork the repository
+2. Create a new branch
+3. Make your changes
+4. Submit a pull request
